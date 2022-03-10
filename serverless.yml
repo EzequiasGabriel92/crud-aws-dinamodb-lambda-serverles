@@ -8,18 +8,29 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-      - dinamodb:*
+      - dynamodb:*
       Resource:
         - arn:aws:dynamodb:us-west-2:120361510729:table/TaskTable
 
-
 functions:
   hello:
-    handler: handler.hello
+    handler: src/hello.hello
     events:
       - httpApi:
           path: /
           method: get
+  createTask:
+    handler: src/addTask.addTask
+    events:
+      - httpApi:
+          path: /tasks
+          method: post
+  getTasks:
+    handler: src/getTasks.getTasks
+    events:
+      - httpApi:
+          path: /tasks
+          method: get     
 
 resources:
   Resources:
